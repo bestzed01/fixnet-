@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>FixNet</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --bg:#0d0d0f;
+  --surface:#18181c;
+  --surface2:#222228;
+  --border:#2a2a32;
+  --blue:#4f8ef7;
+  --blue2:#3a7bf5;
+  --green:#34d399;
+  --green-bg:rgba(52,211,153,0.12);
+  --amber:#fbbf24;
+  --amber-bg:rgba(251,191,36,0.12);
+  --red:#f87171;
+  --red-bg:rgba(248,113,113,0.12);
+  --text:#f0f0f5;
+  --muted:#8888a0;
+  --muted2:#555568;
+  --r:14px;
+  --r-sm:10px;
+}
+
+html,body{
+  min-height:100vh;
+  background:var(--bg);
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--text);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+body{padding-bottom:32px}
+
+/* ── Screens ── */
+.screen{display:none;flex-direction:column;min-height:100vh;animation:fadeUp .25s ease}
+.screen.active{display:flex}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── Top bar ── */
+.topbar{
+  display:flex;align-items:center;gap:10px;
+  padding:20px 20px 0;
+}
+.logo{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.logo-text{font-size:17px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:12px;color:var(--muted)}
+
+/* ── Hero block ── */
+.hero{padding:32px 20px 24px}
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:100px;padding:5px 13px;
+  font-size:12px;font-weight:600;color:var(--muted);
+  margin-bottom:18px;
+}
+.badge-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 0 3px rgba(52,211,153,0.2);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(52,211,153,0.2)}50%{box-shadow:0 0 0 6px rgba(52,211,153,0.05)}}
+
+.hero h1{
+  font-size:30px;font-weight:800;
+  letter-spacing:-0.8px;line-height:1.1;
+  margin-bottom:10px;
+}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:15px;color:var(--muted);line-height:1.6}
+
+/* ── Card ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;
+  margin:0 20px 12px;
+}
+.card-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted2);margin-bottom:10px}
+
+/* ── Status pill ── */
+.status-row{display:flex;align-items:center;gap:10px}
+.status-icon{font-size:24px;line-height:1}
+.status-title{font-size:16px;font-weight:700}
+.status-sub{font-size:13px;color:var(--muted);margin-top:1px}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:100px;padding:3px 10px;
+  font-size:12px;font-weight:600;
+}
+.pill.green{background:var(--green-bg);color:var(--green)}
+.pill.amber{background:var(--amber-bg);color:var(--amber)}
+.pill.red{background:var(--red-bg);color:var(--red)}
+
+/* ── Link box ── */
+.link-row{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface2);border-radius:var(--r-sm);
+  padding:12px 14px;border:1px solid var(--border);
+}
+.link-val{
+  flex:1;font-size:12px;color:var(--muted);
+  font-family:monospace;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;
+}
+.copy-btn{
+  background:var(--blue);color:#fff;border:none;
+  border-radius:8px;padding:7px 14px;
+  font-size:12px;font-weight:600;font-family:inherit;
+  cursor:pointer;flex-shrink:0;transition:opacity .15s;
+}
+.copy-btn:active{opacity:.75}
+.copy-btn.done{background:#1a3a1a;color:var(--green)}
+
+/* ── Steps ── */
+.steps{display:flex;flex-direction:column;gap:2px}
+.step{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.step:last-child{border-bottom:none}
+.step-n{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--blue);color:#fff;
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.step-title{font-size:14px;font-weight:600;margin-bottom:2px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.4}
+
+/* ── Buttons ── */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:calc(100% - 40px);margin:0 20px 10px;
+  padding:17px;border:none;border-radius:var(--r);
+  font-family:inherit;font-size:16px;font-weight:700;
+  cursor:pointer;transition:opacity .15s,transform .1s;
+  text-decoration:none;
+}
+.btn:active{opacity:.8;transform:scale(.98)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-green{background:var(--green);color:#0d1a12}
+.btn-outline{background:transparent;color:var(--blue);border:1px solid var(--blue)}
+
+/* ── Price card ── */
+.price-card{
+  margin:0 20px 12px;
+  background:linear-gradient(145deg,#13182e,#1a2040);
+  border:1px solid #2a3560;border-radius:var(--r);
+  padding:24px;text-align:center;
+}
+.price-amount{font-size:48px;font-weight:800;letter-spacing:-2px;margin-bottom:2px}
+.price-period{font-size:13px;color:var(--muted);margin-bottom:20px}
+.price-features{text-align:left;display:flex;flex-direction:column;gap:10px}
+.price-feature{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(240,240,245,.85)}
+.price-check{color:var(--green);font-size:15px;flex-shrink:0}
+
+/* ── Store buttons ── */
+.store-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 20px 12px}
+.store-btn{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 10px;
+  font-family:inherit;cursor:pointer;text-decoration:none;
+  transition:border-color .15s;
+}
+.store-btn:active{border-color:var(--blue)}
+.store-icon{font-size:24px}
+.store-name{font-size:11px;font-weight:600;color:var(--muted)}
+.store-label{font-size:13px;font-weight:700;color:var(--text)}
+
+/* ── Divider ── */
+.divider{
+  display:flex;align-items:center;gap:10px;
+  margin:4px 20px 10px;color:var(--muted2);font-size:12px;
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Loading ── */
+.loader{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;
+}
+.spin{
+  width:34px;height:34px;
+  border:2.5px solid var(--border);
+  border-top-color:var(--blue);
+  border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader p{font-size:14px;color:var(--muted)}
+
+/* ── Section gap ── */
+.gap{height:8px}
+.gap-sm{height:4px}
+.section-title{
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--muted2);
+  padding:0 20px;margin-bottom:8px;
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="screen active" id="s-loading">
+  <div class="topbar">
+    <div class="logo">🛡</div>
+    <div><div class="logo-text">FixNet</div></div>
+  </div>
+  <div class="loader">
+    <div class="spin"></div>
+    <p>Загружаем ваш профиль…</p>
+  </div>
+</div>
+
+<!-- NEW USER -->
+<div class="screen" id="s-new">
+  <div class="topbar">
+    <div class="logo">🛡</div>
+    <div><div class="logo-text">FixNet</div><div class="logo-sub">Безопасный интернет</div></div>
+  </div>
+  <div class="hero">
+    <div class="badge"><div class="badge-dot"></div>24 часа бесплатно</div>
+    <h1>Интернет снова<br><span>работает</span> ⚡</h1>
+    <p>Открывай любые сайты и приложения — без настроек и паролей</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Как это работает</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div><div class="step-title">Нажми «Начать» — бесплатно</div><div class="step-desc">24 часа без ограничений, без карты</div></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div><div class="step-title">Установи Outline</div><div class="step-desc">Официальное приложение от Google/Jigsaw</div></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div><div class="step-title">Вставь одну ссылку — готово</div><div class="step-desc">YouTube, Instagram, всё работает сразу</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+  <button class="btn btn-primary" onclick="doRegister(this)">🚀 Начать бесплатно</button>
+</div>
+
+<!-- ACTIVE (trial or paid) -->
+<div class="screen" id="s-active">
+  <div class="topbar">
+    <div class="logo">🛡</div>
+    <div><div class="logo-text">FixNet</div><div class="logo-sub">Безопасный интернет</div></div>
+  </div>
+  <div class="gap"></div>
+
+  <div class="card" id="status-card">
+    <div class="status-row">
+      <div class="status-icon" id="st-icon">✅</div>
+      <div style="flex:1">
+        <div class="status-title" id="st-title">Активно</div>
+        <div class="status-sub" id="st-sub">Загрузка…</div>
+      </div>
+      <div class="pill green" id="st-pill">Активно</div>
+    </div>
+  </div>
+
+  <div class="section-title">Ваша ссылка для Outline</div>
+  <div class="card" style="padding:14px">
+    <div class="link-row">
+      <div class="link-val" id="link-val">загрузка…</div>
+      <button class="copy-btn" id="copy-btn" onclick="doCopy()">Копировать</button>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center">
+      Откройте Outline → нажмите + → вставьте ссылку
+    </div>
+  </div>
+
+  <div class="section-title">Скачать Outline</div>
+  <div class="store-row">
+    <a class="store-btn" href="https://play.google.com/store/apps/details?id=org.outline.android.client" target="_blank">
+      <div class="store-icon">🤖</div>
+      <div class="store-name">Google Play</div>
+      <div class="store-label">Android</div>
+    </a>
+    <a class="store-btn" href="https://apps.apple.com/app/outline-app/id1356177741" target="_blank">
+      <div class="store-icon">🍎</div>
+      <div class="store-name">App Store</div>
+      <div class="store-label">iPhone</div>
+    </a>
+  </div>
+
+  <div id="upgrade-section">
+    <div class="gap"></div>
+    <div class="section-title">Продолжить после пробного периода</div>
+    <div class="price-card">
+      <div class="price-amount">150 ⭐</div>
+      <div class="price-period">в месяц · безлимитный трафик</div>
+      <div class="price-features">
+        <div class="price-feature"><span class="price-check">✓</span>Все сайты без ограничений</div>
+        <div class="price-feature"><span class="price-check">✓</span>YouTube, Instagram, TikTok</div>
+        <div class="price-feature"><span class="price-check">✓</span>Без ограничений скорости</div>
+        <div class="price-feature"><span class="price-check">✓</span>Работает на всех устройствах</div>
+      </div>
+    </div>
+    <button class="btn btn-outline" onclick="goPayBot()">⭐ Оплатить через бот</button>
+  </div>
+</div>
+
+<!-- EXPIRED -->
+<div class="screen" id="s-expired">
+  <div class="topbar">
+    <div class="logo">🛡</div>
+    <div><div class="logo-text">FixNet</div></div>
+  </div>
+  <div class="hero">
+    <div class="badge"><div class="badge-dot" style="background:var(--amber);box-shadow:0 0 0 3px rgba(251,191,36,.2)"></div>Подписка истекла</div>
+    <h1>Продолжите<br>пользоваться 🔑</h1>
+    <p>Всего 150 звёзд в месяц — меньше стакана кофе</p>
+  </div>
+
+  <div class="price-card">
+    <div class="price-amount">150 ⭐</div>
+    <div class="price-period">в месяц · безлимитный трафик</div>
+    <div class="price-features">
+      <div class="price-feature"><span class="price-check">✓</span>Все сайты без ограничений</div>
+      <div class="price-feature"><span class="price-check">✓</span>YouTube, Instagram, TikTok</div>
+      <div class="price-feature"><span class="price-check">✓</span>Моментальная активация</div>
+      <div class="price-feature"><span class="price-check">✓</span>Работает на всех устройствах</div>
+    </div>
+  </div>
+  <div class="gap"></div>
+  <button class="btn btn-green" onclick="goPayBot()">⭐ Оплатить 150 звёзд</button>
+  <button class="btn btn-secondary" onclick="goPayBot()">Закрыть и оплатить в боте</button>
+</div>
+
+<!-- ERROR -->
+<div class="screen" id="s-error">
+  <div class="loader">
+    <div style="font-size:40px">😕</div>
+    <p style="text-align:center;padding:0 32px">Не удалось загрузить профиль.<br>Перезапустите бот и попробуйте снова.</p>
+  </div>
+</div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if(tg){tg.ready();tg.expand();tg.setHeaderColor('#0d0d0f');tg.setBackgroundColor('#0d0d0f')}
+
+const BACKEND = '%%BACKEND_URL%%';
+const userId = tg?.initDataUnsafe?.user?.id || null;
+let accessUrl = '';
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function isExpired(iso){
+  if(!iso) return true;
+  return new Date() > new Date(iso+'Z');
+}
+
+function hoursLeft(iso){
+  const diff = new Date(iso+'Z') - new Date();
+  return Math.max(0, Math.floor(diff/3600000));
+}
+
+function formatDate(iso){
+  return new Date(iso+'Z').toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+}
+
+async function fetchUser(){
+  const r = await fetch(`${BACKEND}/user/${userId}`);
+  if(r.status===404) return null;
+  if(!r.ok) throw new Error('server');
+  return r.json();
+}
+
+async function registerUser(){
+  const u = tg?.initDataUnsafe?.user||{};
+  const r = await fetch(`${BACKEND}/user`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      telegram_id:userId,
+      username:u.username||'',
+      full_name:[u.first_name,u.last_name].filter(Boolean).join(' '),
+    })
+  });
+  if(!r.ok) throw new Error('register');
+  return r.json();
+}
+
+function renderActive(data){
+  const paid = data.plan==='paid';
+  const hours = hoursLeft(data.expires_at);
+  accessUrl = data.access_url||'';
+
+  document.getElementById('link-val').textContent = accessUrl.length>45 ? accessUrl.slice(0,45)+'…' : accessUrl;
+  document.getElementById('st-icon').textContent = paid ? '✅' : '🕐';
+  document.getElementById('st-title').textContent = paid ? 'Платная подписка' : 'Пробный период';
+  document.getElementById('st-sub').textContent = paid
+    ? 'До '+formatDate(data.expires_at)
+    : 'Осталось ~'+hours+' ч бесплатно';
+
+  const pill = document.getElementById('st-pill');
+  pill.textContent = paid ? 'Оплачено' : 'Пробный';
+  pill.className = 'pill '+(paid?'green':'amber');
+
+  document.getElementById('upgrade-section').style.display = paid ? 'none' : 'block';
+  show('s-active');
+}
+
+async function doRegister(btn){
+  if(!userId){alert('Откройте через Telegram бота');return}
+  btn.textContent='⏳ Подключаем…';
+  btn.disabled=true;
+  try{
+    const data = await registerUser();
+    renderActive({...data,plan:'trial'});
+  }catch(e){
+    btn.textContent='🚀 Начать бесплатно';
+    btn.disabled=false;
+    alert('Ошибка соединения. Попробуйте снова.');
+  }
+}
+
+function doCopy(){
+  const btn = document.getElementById('copy-btn');
+  navigator.clipboard?.writeText(accessUrl).then(()=>{
+    btn.textContent='✓ Скопировано';
+    btn.classList.add('done');
+    setTimeout(()=>{btn.textContent='Копировать';btn.classList.remove('done')},2000);
+  });
+}
+
+function goPayBot(){
+  tg?.close();
+}
+
+async function init(){
+  if(!userId){
+    show('s-error');
+    document.querySelector('#s-error .loader p').innerHTML='Откройте это приложение<br>через Telegram бота';
+    return;
+  }
+  try{
+    const data = await fetchUser();
+    if(!data){ show('s-new'); return; }
+    if(isExpired(data.expires_at)){ show('s-expired'); return; }
+    renderActive(data);
+  }catch(e){
+    show('s-error');
+  }
+}
+
+init();
+</script>
+</body>
+</html>

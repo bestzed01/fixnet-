@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    container_name: fixnet_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./frontend:/app/frontend
+    environment:
+      - DB_PATH=/app/data/fixnet.db
+      - FRONTEND_DIR=/app/frontend
+      - BACKEND_URL=${BACKEND_URL}
+      - OUTLINE_API_URL=${OUTLINE_API_URL}
+      - ADMIN_SECRET=${ADMIN_SECRET:-changeme}
+
+  bot:
+    build: ./bot
+    container_name: fixnet_bot
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - BACKEND_URL=http://backend:8000
+      - MINI_APP_URL=${MINI_APP_URL}
