@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from datetime import datetime
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, LabeledPrice
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, PreCheckoutQueryHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import MessageHandler, filters
+
 
 load_dotenv()
 BOT_TOKEN    = os.getenv("BOT_TOKEN")
@@ -86,6 +88,18 @@ async def payment_done(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         parse_mode="MarkdownV2", reply_markup=main_keyboard()
     )
 
+async def handle_webapp_data(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    data = update.message.web_app_data.data
+    if data == 'pay':
+        await ctx.bot.send_invoice(
+            chat_id=update.effective_chat.id,
+            title="FixNet — 1 месяц",
+            description="Безлимитный доступ на 1 месяц. Все сайты, без ограничений.",
+            payload=f"sub_{update.effective_user.id}",
+            currency="XTR",
+            prices=[LabeledPrice("1 месяц", 150)],
+        )
+
 if __name__ == "__main__":
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
@@ -93,4 +107,5 @@ if __name__ == "__main__":
     app.add_handler(PreCheckoutQueryHandler(precheckout))
     app.add_handler(MessageHandler(filters.SUCCESSFUL_PAYMENT, payment_done))
     log.info("FixNet bot running")
+    app.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_webapp_data))
     app.run_polling()
