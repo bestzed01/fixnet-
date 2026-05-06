@@ -1,9 +1,14 @@
-import os, httpx
+import os
+
+import httpx
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from dotenv import load_dotenv
 from database import init_db, get_user, create_user, update_subscription, get_stats
+
+load_dotenv()
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -15,7 +20,9 @@ ADMIN_SECRET = os.getenv("ADMIN_SECRET", "changeme")
 
 # 🔥 FIXED PATH (no env dependency)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
+FRONTEND_DIR = os.path.abspath(
+    os.getenv("FRONTEND_DIR", os.path.join(BASE_DIR, "..", "frontend"))
+)
 
 @app.on_event("startup")
 async def startup():
@@ -34,22 +41,22 @@ class PaymentIn(BaseModel):
 
 @app.get("/app", response_class=HTMLResponse)
 def mini_app():
+    path = os.path.join(FRONTEND_DIR, "app.html")
     try:
-        path = os.path.join(FRONTEND_DIR, "app.html")
-
         with open(path, encoding="utf-8") as f:
             html = f.read()
 
         html = html.replace("%%BACKEND_URL%%", BACKEND_URL)
         return HTMLResponse(html)
-
-    except Exception as e:
-        return {
-            "error": str(e),
-            "expected_path": path,
-            "frontend_dir": FRONTEND_DIR,
-            "files_here": os.listdir(FRONTEND_DIR) if os.path.exists(FRONTEND_DIR) else "NOT FOUND"
-        }
+    except OSError as e:
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "error": str(e),
+                "expected_path": path,
+                "frontend_dir": FRONTEND_DIR,
+            },
+        )
 
 # ── Outline helper ─────────────────────────────────────────────────────
 
