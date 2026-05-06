@@ -311,6 +311,9 @@ body{padding-bottom:32px}
     </a>
   </div>
 
+  <div class="gap"></div>
+  <button class="btn btn-secondary" onclick="show('s-guide')">📖 Как подключиться? Инструкция</button>
+
   <div id="upgrade-section">
     <div class="gap"></div>
     <div class="section-title">Продолжить после пробного периода</div>
@@ -326,6 +329,98 @@ body{padding-bottom:32px}
     </div>
     <button class="btn btn-outline" onclick="goPayBot()">⭐ Оплатить через бот</button>
   </div>
+</div>
+
+<!-- GUIDE -->
+<div class="screen" id="s-guide">
+  <div class="topbar">
+    <div class="logo" onclick="show('s-active')" style="cursor:pointer;background:var(--surface2)">←</div>
+    <div><div class="logo-text">Инструкция</div><div class="logo-sub">Как подключиться</div></div>
+  </div>
+
+  <div style="padding:20px 20px 0;text-align:center">
+    <div style="font-size:28px;margin-bottom:8px">📖</div>
+    <div style="font-size:20px;font-weight:800;margin-bottom:6px">Подключение за 5 минут</div>
+    <div style="font-size:13px;color:var(--muted)">Читайте по шагам — всё очень просто</div>
+  </div>
+
+  <div style="padding:20px 20px 0;display:flex;flex-direction:column;gap:12px">
+
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">1</div>
+        <div>
+          <div class="step-title">Скачайте приложение Outline</div>
+          <div class="step-desc">Бесплатное приложение от Google. Только из официального магазина.</div>
+          <div class="store-row" style="margin-top:10px">
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=org.outline.android.client" target="_blank">
+              <div class="store-icon">🤖</div><div class="store-name">Google Play</div><div class="store-label">Android</div>
+            </a>
+            <a class="store-btn" href="https://apps.apple.com/app/outline-app/id1356177741" target="_blank">
+              <div class="store-icon">🍎</div><div class="store-name">App Store</div><div class="store-label">iPhone</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">2</div>
+        <div>
+          <div class="step-title">Скопируйте вашу ссылку</div>
+          <div class="step-desc">Вернитесь назад и нажмите кнопку <strong>«Копировать»</strong> — ссылка скопируется автоматически</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">3</div>
+        <div>
+          <div class="step-title">Откройте Outline, нажмите «+»</div>
+          <div class="step-desc">Кнопка плюс находится в <strong>правом верхнем углу</strong> приложения</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">4</div>
+        <div>
+          <div class="step-title">Вставьте ссылку → «Добавить»</div>
+          <div class="step-desc">Outline сам вставит ссылку. Нажмите <strong>«Добавить сервер»</strong>.<br><br>
+          Если не вставилась — зажмите поле пальцем и выберите <strong>«Вставить»</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">5</div>
+        <div>
+          <div class="step-title">Нажмите «Разрешить»</div>
+          <div class="step-desc">Телефон спросит разрешение — это нормально. Нажмите <strong>«Разрешить»</strong> или <strong>«ОК»</strong>.<br><br>
+          Outline — официальное приложение Google, это безопасно 🔒</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:var(--green)">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0;background:var(--green);color:#0d1a12">6</div>
+        <div>
+          <div class="step-title">Включите переключатель</div>
+          <div class="step-desc">Нажмите на тумблер рядом с сервером — он станет зелёным.<br><br>
+          🎉 <strong>Готово! Интернет работает.</strong> YouTube, Instagram, все сайты открываются.<br><br>
+          Чтобы выключить — нажмите тумблер снова.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="gap"></div>
+  <button class="btn btn-primary" onclick="show('s-active')">← Вернуться назад</button>
 </div>
 
 <!-- EXPIRED -->
