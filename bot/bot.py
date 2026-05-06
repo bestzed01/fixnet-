@@ -34,7 +34,7 @@ async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     u = update.effective_user
     args = ctx.args
 
-    # User came from Mini App pay button
+    # Came from Mini App pay button — always send invoice
     if args and args[0] == 'pay':
         await ctx.bot.send_invoice(
             chat_id=update.effective_chat.id,

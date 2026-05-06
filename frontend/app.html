@@ -551,11 +551,7 @@ function doCopy(){
 }
  
 function goPayBot(){
-  tg?.showPopup({
-    title: 'Оплата',
-    message: 'Закройте это окно и нажмите кнопку "⭐ Оплатить 150 звёзд" в боте',
-    buttons: [{type: 'close'}]
-  });
+  window.location.href = 'https://t.me/BlockGhosty_bot?start=pay';
 }
  
 async function init(){
