@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-
+ 
 :root{
   --bg:#0d0d0f;
   --surface:#18181c;
@@ -28,7 +28,7 @@
   --r:14px;
   --r-sm:10px;
 }
-
+ 
 html,body{
   min-height:100vh;
   background:var(--bg);
@@ -39,15 +39,15 @@ html,body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-
+ 
 body{padding-bottom:32px}
-
+ 
 /* ── Screens ── */
 .screen{display:none;flex-direction:column;min-height:100vh;animation:fadeUp .25s ease}
 .screen.active{display:flex}
-
+ 
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
+ 
 /* ── Top bar ── */
 .topbar{
   display:flex;align-items:center;gap:10px;
@@ -61,7 +61,7 @@ body{padding-bottom:32px}
 }
 .logo-text{font-size:17px;font-weight:700;color:var(--text)}
 .logo-sub{font-size:12px;color:var(--muted)}
-
+ 
 /* ── Hero block ── */
 .hero{padding:32px 20px 24px}
 .badge{
@@ -78,7 +78,7 @@ body{padding-bottom:32px}
   animation:pulse 2s infinite;
 }
 @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(52,211,153,0.2)}50%{box-shadow:0 0 0 6px rgba(52,211,153,0.05)}}
-
+ 
 .hero h1{
   font-size:30px;font-weight:800;
   letter-spacing:-0.8px;line-height:1.1;
@@ -86,7 +86,7 @@ body{padding-bottom:32px}
 }
 .hero h1 span{color:var(--blue)}
 .hero p{font-size:15px;color:var(--muted);line-height:1.6}
-
+ 
 /* ── Card ── */
 .card{
   background:var(--surface);border:1px solid var(--border);
@@ -94,7 +94,7 @@ body{padding-bottom:32px}
   margin:0 20px 12px;
 }
 .card-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted2);margin-bottom:10px}
-
+ 
 /* ── Status pill ── */
 .status-row{display:flex;align-items:center;gap:10px}
 .status-icon{font-size:24px;line-height:1}
@@ -108,7 +108,7 @@ body{padding-bottom:32px}
 .pill.green{background:var(--green-bg);color:var(--green)}
 .pill.amber{background:var(--amber-bg);color:var(--amber)}
 .pill.red{background:var(--red-bg);color:var(--red)}
-
+ 
 /* ── Link box ── */
 .link-row{
   display:flex;align-items:center;gap:10px;
@@ -128,7 +128,7 @@ body{padding-bottom:32px}
 }
 .copy-btn:active{opacity:.75}
 .copy-btn.done{background:#1a3a1a;color:var(--green)}
-
+ 
 /* ── Steps ── */
 .steps{display:flex;flex-direction:column;gap:2px}
 .step{
@@ -145,7 +145,7 @@ body{padding-bottom:32px}
 }
 .step-title{font-size:14px;font-weight:600;margin-bottom:2px}
 .step-desc{font-size:13px;color:var(--muted);line-height:1.4}
-
+ 
 /* ── Buttons ── */
 .btn{
   display:flex;align-items:center;justify-content:center;gap:9px;
@@ -160,7 +160,7 @@ body{padding-bottom:32px}
 .btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
 .btn-green{background:var(--green);color:#0d1a12}
 .btn-outline{background:transparent;color:var(--blue);border:1px solid var(--blue)}
-
+ 
 /* ── Price card ── */
 .price-card{
   margin:0 20px 12px;
@@ -173,7 +173,7 @@ body{padding-bottom:32px}
 .price-features{text-align:left;display:flex;flex-direction:column;gap:10px}
 .price-feature{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(240,240,245,.85)}
 .price-check{color:var(--green);font-size:15px;flex-shrink:0}
-
+ 
 /* ── Store buttons ── */
 .store-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 20px 12px}
 .store-btn{
@@ -187,14 +187,14 @@ body{padding-bottom:32px}
 .store-icon{font-size:24px}
 .store-name{font-size:11px;font-weight:600;color:var(--muted)}
 .store-label{font-size:13px;font-weight:700;color:var(--text)}
-
+ 
 /* ── Divider ── */
 .divider{
   display:flex;align-items:center;gap:10px;
   margin:4px 20px 10px;color:var(--muted2);font-size:12px;
 }
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
+ 
 /* ── Loading ── */
 .loader{
   flex:1;display:flex;flex-direction:column;
@@ -208,7 +208,7 @@ body{padding-bottom:32px}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader p{font-size:14px;color:var(--muted)}
-
+ 
 /* ── Section gap ── */
 .gap{height:8px}
 .gap-sm{height:4px}
@@ -220,7 +220,7 @@ body{padding-bottom:32px}
 </style>
 </head>
 <body>
-
+ 
 <!-- LOADING -->
 <div class="screen active" id="s-loading">
   <div class="topbar">
@@ -232,7 +232,7 @@ body{padding-bottom:32px}
     <p>Загружаем ваш профиль…</p>
   </div>
 </div>
-
+ 
 <!-- NEW USER -->
 <div class="screen" id="s-new">
   <div class="topbar">
@@ -244,7 +244,7 @@ body{padding-bottom:32px}
     <h1>Интернет снова<br><span>работает</span> ⚡</h1>
     <p>Открывай любые сайты и приложения — без настроек и паролей</p>
   </div>
-
+ 
   <div class="card">
     <div class="card-label">Как это работает</div>
     <div class="steps">
@@ -262,11 +262,11 @@ body{padding-bottom:32px}
       </div>
     </div>
   </div>
-
+ 
   <div class="gap"></div>
   <button class="btn btn-primary" onclick="doRegister(this)">🚀 Начать бесплатно</button>
 </div>
-
+ 
 <!-- ACTIVE (trial or paid) -->
 <div class="screen" id="s-active">
   <div class="topbar">
@@ -274,7 +274,7 @@ body{padding-bottom:32px}
     <div><div class="logo-text">FixNet</div><div class="logo-sub">Безопасный интернет</div></div>
   </div>
   <div class="gap"></div>
-
+ 
   <div class="card" id="status-card">
     <div class="status-row">
       <div class="status-icon" id="st-icon">✅</div>
@@ -285,7 +285,7 @@ body{padding-bottom:32px}
       <div class="pill green" id="st-pill">Активно</div>
     </div>
   </div>
-
+ 
   <div class="section-title">Ваша ссылка для Outline</div>
   <div class="card" style="padding:14px">
     <div class="link-row">
@@ -296,7 +296,7 @@ body{padding-bottom:32px}
       Откройте Outline → нажмите + → вставьте ссылку
     </div>
   </div>
-
+ 
   <div class="section-title">Скачать Outline</div>
   <div class="store-row">
     <a class="store-btn" href="https://play.google.com/store/apps/details?id=org.outline.android.client" target="_blank">
@@ -310,7 +310,10 @@ body{padding-bottom:32px}
       <div class="store-label">iPhone</div>
     </a>
   </div>
-
+ 
+  <div class="gap"></div>
+  <button class="btn btn-secondary" onclick="show('s-guide')">📖 Как подключиться? Инструкция</button>
+ 
   <div id="upgrade-section">
     <div class="gap"></div>
     <div class="section-title">Продолжить после пробного периода</div>
@@ -327,7 +330,99 @@ body{padding-bottom:32px}
     <button class="btn btn-outline" onclick="goPayBot()">⭐ Оплатить через бот</button>
   </div>
 </div>
-
+ 
+<!-- GUIDE -->
+<div class="screen" id="s-guide">
+  <div class="topbar">
+    <div class="logo" onclick="show('s-active')" style="cursor:pointer;background:var(--surface2)">←</div>
+    <div><div class="logo-text">Инструкция</div><div class="logo-sub">Как подключиться</div></div>
+  </div>
+ 
+  <div style="padding:20px 20px 0;text-align:center">
+    <div style="font-size:28px;margin-bottom:8px">📖</div>
+    <div style="font-size:20px;font-weight:800;margin-bottom:6px">Подключение за 5 минут</div>
+    <div style="font-size:13px;color:var(--muted)">Читайте по шагам — всё очень просто</div>
+  </div>
+ 
+  <div style="padding:20px 20px 0;display:flex;flex-direction:column;gap:12px">
+ 
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">1</div>
+        <div>
+          <div class="step-title">Скачайте приложение Outline</div>
+          <div class="step-desc">Бесплатное приложение от Google. Только из официального магазина.</div>
+          <div class="store-row" style="margin-top:10px">
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=org.outline.android.client" target="_blank">
+              <div class="store-icon">🤖</div><div class="store-name">Google Play</div><div class="store-label">Android</div>
+            </a>
+            <a class="store-btn" href="https://apps.apple.com/app/outline-app/id1356177741" target="_blank">
+              <div class="store-icon">🍎</div><div class="store-name">App Store</div><div class="store-label">iPhone</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">2</div>
+        <div>
+          <div class="step-title">Скопируйте вашу ссылку</div>
+          <div class="step-desc">Вернитесь назад и нажмите кнопку <strong>«Копировать»</strong> — ссылка скопируется автоматически</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">3</div>
+        <div>
+          <div class="step-title">Откройте Outline, нажмите «+»</div>
+          <div class="step-desc">Кнопка плюс находится в <strong>правом верхнем углу</strong> приложения</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">4</div>
+        <div>
+          <div class="step-title">Вставьте ссылку → «Добавить»</div>
+          <div class="step-desc">Outline сам вставит ссылку. Нажмите <strong>«Добавить сервер»</strong>.<br><br>
+          Если не вставилась — зажмите поле пальцем и выберите <strong>«Вставить»</strong></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0">5</div>
+        <div>
+          <div class="step-title">Нажмите «Разрешить»</div>
+          <div class="step-desc">Телефон спросит разрешение — это нормально. Нажмите <strong>«Разрешить»</strong> или <strong>«ОК»</strong>.<br><br>
+          Outline — официальное приложение Google, это безопасно 🔒</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card" style="border-color:var(--green)">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="step-n" style="flex-shrink:0;background:var(--green);color:#0d1a12">6</div>
+        <div>
+          <div class="step-title">Включите переключатель</div>
+          <div class="step-desc">Нажмите на тумблер рядом с сервером — он станет зелёным.<br><br>
+          🎉 <strong>Готово! Интернет работает.</strong> YouTube, Instagram, все сайты открываются.<br><br>
+          Чтобы выключить — нажмите тумблер снова.</div>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+  <div class="gap"></div>
+  <button class="btn btn-primary" onclick="show('s-active')">← Вернуться назад</button>
+</div>
+ 
 <!-- EXPIRED -->
 <div class="screen" id="s-expired">
   <div class="topbar">
@@ -339,7 +434,7 @@ body{padding-bottom:32px}
     <h1>Продолжите<br>пользоваться 🔑</h1>
     <p>Всего 150 звёзд в месяц — меньше стакана кофе</p>
   </div>
-
+ 
   <div class="price-card">
     <div class="price-amount">150 ⭐</div>
     <div class="price-period">в месяц · безлимитный трафик</div>
@@ -354,7 +449,7 @@ body{padding-bottom:32px}
   <button class="btn btn-green" onclick="goPayBot()">⭐ Оплатить 150 звёзд</button>
   <button class="btn btn-secondary" onclick="goPayBot()">Закрыть и оплатить в боте</button>
 </div>
-
+ 
 <!-- ERROR -->
 <div class="screen" id="s-error">
   <div class="loader">
@@ -362,41 +457,41 @@ body{padding-bottom:32px}
     <p style="text-align:center;padding:0 32px">Не удалось загрузить профиль.<br>Перезапустите бот и попробуйте снова.</p>
   </div>
 </div>
-
+ 
 <script>
 const tg = window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();tg.setHeaderColor('#0d0d0f');tg.setBackgroundColor('#0d0d0f')}
-
+ 
 const BACKEND = '%%BACKEND_URL%%';
 const userId = tg?.initDataUnsafe?.user?.id || null;
 let accessUrl = '';
-
+ 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-
+ 
 function isExpired(iso){
   if(!iso) return true;
   return new Date() > new Date(iso+'Z');
 }
-
+ 
 function hoursLeft(iso){
   const diff = new Date(iso+'Z') - new Date();
   return Math.max(0, Math.floor(diff/3600000));
 }
-
+ 
 function formatDate(iso){
   return new Date(iso+'Z').toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
 }
-
+ 
 async function fetchUser(){
   const r = await fetch(`${BACKEND}/user/${userId}`);
   if(r.status===404) return null;
   if(!r.ok) throw new Error('server');
   return r.json();
 }
-
+ 
 async function registerUser(){
   const u = tg?.initDataUnsafe?.user||{};
   const r = await fetch(`${BACKEND}/user`,{
@@ -411,27 +506,27 @@ async function registerUser(){
   if(!r.ok) throw new Error('register');
   return r.json();
 }
-
+ 
 function renderActive(data){
   const paid = data.plan==='paid';
   const hours = hoursLeft(data.expires_at);
   accessUrl = data.access_url||'';
-
+ 
   document.getElementById('link-val').textContent = accessUrl.length>45 ? accessUrl.slice(0,45)+'…' : accessUrl;
   document.getElementById('st-icon').textContent = paid ? '✅' : '🕐';
   document.getElementById('st-title').textContent = paid ? 'Платная подписка' : 'Пробный период';
   document.getElementById('st-sub').textContent = paid
     ? 'До '+formatDate(data.expires_at)
     : 'Осталось ~'+hours+' ч бесплатно';
-
+ 
   const pill = document.getElementById('st-pill');
   pill.textContent = paid ? 'Оплачено' : 'Пробный';
   pill.className = 'pill '+(paid?'green':'amber');
-
+ 
   document.getElementById('upgrade-section').style.display = paid ? 'none' : 'block';
   show('s-active');
 }
-
+ 
 async function doRegister(btn){
   if(!userId){alert('Откройте через Telegram бота');return}
   btn.textContent='⏳ Подключаем…';
@@ -445,7 +540,7 @@ async function doRegister(btn){
     alert('Ошибка соединения. Попробуйте снова.');
   }
 }
-
+ 
 function doCopy(){
   const btn = document.getElementById('copy-btn');
   navigator.clipboard?.writeText(accessUrl).then(()=>{
@@ -454,11 +549,11 @@ function doCopy(){
     setTimeout(()=>{btn.textContent='Копировать';btn.classList.remove('done')},2000);
   });
 }
-
+ 
 function goPayBot(){
   tg?.close();
 }
-
+ 
 async function init(){
   if(!userId){
     show('s-error');
@@ -474,8 +569,9 @@ async function init(){
     show('s-error');
   }
 }
-
+ 
 init();
 </script>
 </body>
 </html>
+ 
