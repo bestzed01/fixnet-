@@ -21,6 +21,8 @@ def is_expired(iso):
 def main_keyboard():
     return InlineKeyboardMarkup([[
         InlineKeyboardButton("🌐 Открыть приложение", web_app=WebAppInfo(url=MINI_APP_URL))
+    ],[
+        InlineKeyboardButton("⭐ Оплатить 150 звёзд", callback_data="pay")
     ]])
 
 def pay_keyboard():
