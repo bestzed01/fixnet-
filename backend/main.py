@@ -61,21 +61,10 @@ def mini_app():
 # ── Outline helper ─────────────────────────────────────────────────────
 
 async def outline_create_key(telegram_id: int) -> str:
-    if not OUTLINE_API:
-        raise Exception("OUTLINE_API_URL not set")
-
-    async with httpx.AsyncClient(verify=False, timeout=10) as client:
-        r = await client.post(f"{OUTLINE_API}/access-keys")
-        r.raise_for_status()
-        key = r.json()
-
-        await client.put(
-            f"{OUTLINE_API}/access-keys/{key['id']}/name",
-            json={"name": f"user_{telegram_id}"}
-        )
-
-        return key["accessUrl"]
-
+    # Fake key for testing — replace with real Outline API later
+    import hashlib
+    fake_hash = hashlib.md5(str(telegram_id).encode()).hexdigest()[:32]
+    return f"ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp7fake_{fake_hash}@fixnet.server:12345/?outline=1"
 # ── API ───────────────────────────────────────────────────────────────
 
 @app.post("/user")
