@@ -32,6 +32,20 @@ def pay_keyboard():
 
 async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     u = update.effective_user
+    args = ctx.args
+
+    # User came from Mini App pay button
+    if args and args[0] == 'pay':
+        await ctx.bot.send_invoice(
+            chat_id=update.effective_chat.id,
+            title="FixNet — 1 месяц",
+            description="Безлимитный доступ на 1 месяц. Все сайты, без ограничений.",
+            payload=f"sub_{u.id}",
+            currency="XTR",
+            prices=[LabeledPrice("1 месяц", 150)],
+        )
+        return
+
     try:
         r = requests.get(f"{BACKEND_URL}/user/{u.id}", timeout=5)
         if r.status_code == 200:
